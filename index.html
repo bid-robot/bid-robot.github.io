@@ -107,7 +107,8 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Bidirectional Decoding:<br>Improving Action Chunking via <br>Closed-Loop Resampling</h1>
+          <h1 class="title is-1 publication-title">Bidirectional Decoding</h1>
+          <h2 class="subtitle is-2 publication-subtitle">Improving Action Chunking via  <br> Closed-Loop Resampling</h2>
           <div class="is-size-4 publication-authors">
             <span class="author-block">
               <a href="https://sites.google.com/view/yuejiangliu/home">Yuejiang Liu</a><sup>*</sup>,</span>
@@ -141,15 +142,15 @@
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link. -->
-              <!-- <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark">
+              <span class="link-block">
+                <a href="./static/BID_paper.pdf"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
                   <span>Paper</span>
                 </a>
-              </span> -->
+              </span>
               <!-- <span class="link-block">
                 <a href="https://arxiv.org/abs/2011.12948"
                    class="external-link button is-normal is-rounded is-dark">
@@ -170,15 +171,24 @@
                 </a>
               </span> -->
               <!-- Code Link. -->
-              <!-- <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+              <span class="link-block">
+                <a href="https://github.com/YuejiangLIU/bid_dp"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Code (Diffusion Policy)</span>
                   </a>
-              </span> -->
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/Jubayer-Hamid/bid_lerobot"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (VQ-BeT)</span>
+                  </a>
+              </span>
               <!-- Dataset Link. -->
               <!-- <span class="link-block">
                 <a href="https://github.com/google/nerfies/releases/tag/0.1"
@@ -189,7 +199,6 @@
                   <span>Data</span>
                   </a> -->
             </div>
-
           </div>
         </div>
       </div>
@@ -353,7 +362,7 @@
     <div class="video-row">
       <div class="columns is-centered is-multiline">
         <div class="column is-one-quarter">
-          <div class="content has-text-centered">
+          <div class="content">
             <h3 class="title is-6">Vanilla Open-Loop</h3>
             <video id="video1" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/Random_open_cup_stochastic_trimmed.mov" type="video/mp4">
@@ -362,7 +371,7 @@
           </div>
         </div>
         <div class="column is-one-quarter">
-          <div class="content has-text-centered">
+          <div class="content">
             <h3 class="title is-6">Vanilla Closed-Loop</h3>
             <video id="video2" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/Random_closed_cup_stochastic_trimmed.mov" type="video/mp4">
@@ -371,7 +380,7 @@
           </div>
         </div>
         <div class="column is-one-quarter">
-          <div class="content has-text-centered">
+          <div class="content">
             <h3 class="title is-6">EMA Closed-Loop</h3>
             <video id="video3" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/EMA_cup_stochastic_trimmed.mov" type="video/mp4">
@@ -380,7 +389,7 @@
           </div>
         </div>
         <div class="column is-one-quarter">
-          <div class="content has-text-centered">
+          <div class="content">
             <h3 class="title is-6">BID Closed-Loop</h3>
             <video id="video4" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/BID_cup_stochastic_trimmed.mov" type="video/mp4">
@@ -399,7 +408,7 @@
       <div class="columns is-centered is-multiline">
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Open-Loop (static environment)</h3>
+            <h3 class="title is-6">Vanilla Open-Loop <br> (static environment)</h3>
             <video id="video5" autoplay controls muted loop playsinline height="100%" >
               <source src="./static/videos/vanilla_droptoy_static_updated.mp4" type="video/mp4">
             </video>
@@ -407,7 +416,7 @@
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">BID Closed-Loop (static environment)</h3>
+            <h3 class="title is-6">BID Closed-Loop <br> (static environment)</h3>
             <video id="video6" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/extended_BID_droptoy_static.mp4" type="video/mp4">
             </video>
@@ -415,7 +424,7 @@
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Open-Loop (dynamic environment)</h3>
+            <h3 class="title is-6">Vanilla Open-Loop <br> (dynamic environment)</h3>
             <video id="video7" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/extended_vanilla_droptoy_stochastic.mp4" type="video/mp4">
             </video>
@@ -423,7 +432,7 @@
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">BID Closed-Loop (dynamic environment)</h3>
+            <h3 class="title is-6">BID Closed-Loop <br> (dynamic environment)</h3>
             <video id="video8" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/BID_droptoy_stochastic.mov" type="video/mp4">
             </video>
@@ -449,7 +458,7 @@
     <div class="video-row">
       <div class="columns is-centered is-multiline">
         <div class="column is-one-quarter">
-          <div class="content has-text-centered">
+          <div class="content">
             <h3 class="title is-6">Vanilla Open-Loop</h3>
             <video id="video9" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/pusht_noisy_random_open_trimmed.mov" type="video/mp4">
@@ -458,7 +467,7 @@
           </div>
         </div>
         <div class="column is-one-quarter">
-          <div class="content has-text-centered">
+          <div class="content">
             <h3 class="title is-6">Vanilla Closed-Loop</h3>
             <video id="video10" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/pusht_noisy_random_close_trimmed.mov" type="video/mp4">
@@ -467,7 +476,7 @@
           </div>
         </div>
         <div class="column is-one-quarter">
-          <div class="content has-text-centered">
+          <div class="content">
             <h3 class="title is-6">EMA Closed-Loop</h3>
             <video id="video11" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/pusht_noisy_ema_trimmed.mov" type="video/mp4">
@@ -476,7 +485,7 @@
           </div>
         </div>
         <div class="column is-one-quarter">
-          <div class="content has-text-centered">
+          <div class="content">
             <h3 class="title is-6">BID Closed-Loop</h3>
             <video id="video12" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/pusht_noisy_bbs_trimmed.mov" type="video/mp4">
