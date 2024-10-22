@@ -630,6 +630,13 @@
         </figure>
         <div class="content has-text-justified">
           <p>
+            We also evaluate two critical properties of BID: scalability with increasing batch sizes and compatibility with existing inference methods. Notably, BID benefits significantly from large batch sizes, demonstrating strong potential for test-time scaling. Moreover, when combined with EMA, BID boosts the relative performance gain from 32% to 46%, exhibiting a complementary effect with existing methods.
+          </p>
+          <figure class="image is-centered" style="margin-bottom: 1rem;">
+            <img src="./static/images/scale+complement.png" alt="Scalability with increasing batch sizes and compatibility with existing inference methods">
+          </figure>
+          <div class="content has-text-justified">
+          <p>
             In real world, we, first, consider a task where the robot is to deliver an object held in its gripper into a cup held by a human. This task mirrors
             real-world scenarios where robots interact with a dynamic environment, accommodating moving objects and agents. In the second task, the robot is to pick up a moving cup and place it on a nearby saucer. BID achieves over 2x improvement in success rate compared to all other methods in the stochastic
             setting while matching the performance of the best alternative in the static one.
