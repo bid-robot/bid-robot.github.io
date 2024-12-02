@@ -331,8 +331,7 @@
         </div>  
         <div class="content has-text-justified">
           <p>
-            Intuitively, while the probability of any single pair of samples sharing the same latent strategy is low, the likelihood of finding a consistent pair increases with the number of samples. 
-            We thus frame the problem of closed-loop action chunking as searching for the optimal action among a batch of samples drawn at each time step, $$ a^* = \arg \min_{a \in \mathcal{A}} \mathcal{L}_B(a) + \mathcal{L}_F(a) $$ where \(\mathcal{A}\) is the set of sampled action chunks, \( \mathcal{L}_B \) and \( \mathcal{L}_F \) are two criteria measuring the temporal dependency with respect to the backward decision and forward plan.
+            We frame the problem of closed-loop action chunking as searching for the optimal action among a batch of samples drawn at each time step, $$ a^* = \arg \min_{a \in \mathcal{A}} \mathcal{L}_B(a) + \mathcal{L}_F(a) $$ where \(\mathcal{A}\) is the set of sampled action chunks, \( \mathcal{L}_B \) and \( \mathcal{L}_F \) are two criteria measuring the temporal dependency with respect to the backward decision and forward plan.
             To ensure temporal coherence, we  reference the action chunk from the previous time step, \( \hat a := \{ {a}^{(t-1)}_{t-1}, \cdots, {a}^{(t-1)}_{t+l-1} \} \) and minimize the weighted sum of Euclidean distance across \( l - 1 \) overlapping steps: 
             $$ \mathcal{L}_B = \sum_{\tau=0}^{l-1} \rho^\tau \left\| a_{t+\tau}^{(t)} - {\hat a}_{t+\tau}^{(t-1)} \right\|_2. $$
             This backward objective encourages similar latent strategies between consecutive steps while allowing for gradual adaptation to unforeseen transition dynamics. <br> A robust policy should predict far enough to capture temporal dependencies in demonstrations. To ensure this, we compare each candidate plan with two reference sets: one from a well-trained model as the stronger policy, and another from an early underfitting checkpoint or a shorter prediction horizon model as the weaker policy. The forward objective minimizes the average distance to positive samples from the strong policy and maximizes the average distance to negative samples from the weak policy:
@@ -367,52 +366,52 @@
       <div class="columns is-centered is-multiline">
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Open-Loop</h3>
+            <h3 class="title is-6 has-text-centered">Vanilla Open-Loop</h3>
             <video id="video1" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/Random_open_cup_stochastic_trimmed.mov" type="video/mp4">
             </video>
-            <p>Cannot react to cup's motion - gripper closes before reaching the cup.</p>
+            <p> Consistent but unreactive to cup's motion.</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">Vanilla Closed-Loop</h3>
             <video id="video2" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/Random_closed_cup_stochastic_trimmed.mov" type="video/mp4">
             </video>
-            <p>Reacts to cup's motion but lacks consistent planning causing jittery behavior.</p>
+            <p>Reactive but inconsistent causing jittery motion.</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">EMA Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">EMA Closed-Loop</h3>
             <video id="video3" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/EMA_cup_stochastic_trimmed.mov" type="video/mp4">
             </video>
-            <p>Cannot react to cup's motion sufficiently quickly and fails to grasp the cup firmly.</p>
+            <p>Reactions are slow and fails to grasp the cup firmly.</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">BID Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">BID Closed-Loop</h3>
             <video id="video4" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/BID_cup_stochastic_trimmed.mov" type="video/mp4">
             </video>
-            <p>Reacts to cup's motion and carries out a consistent long-term plan.</p>
+            <p>Consistent with plan and reactive to cup's motion.</p>
           </div>
         </div>
       </div>
     </div>
     <div class="content has-text-justified">
       <p>
-        We use a pretrained diffusion policy and compare the performance of BID with random sampling in open loop, random sampling in closed loop, and Exponential Moving Average (EMA) sampling. The first task is to pick up a moving cup whose initial position is fixed and place it on a nearby saucer. The cup is pulled with a string until both the gripper grasps the cup. BID consistently outperforms the other methods achieving over 2x improvement in success rate.
+        We use a pretrained diffusion policy and compare the performance of BID with random sampling in open loop, random sampling in closed loop, and Exponential Moving Average (EMA) sampling. The first task is to pick up a moving cup whose initial position is fixed and place it on a nearby saucer. The cup is pulled with a string until both the gripper grasps the cup.
       </p>
     </div>
     <div class="video-row">
       <div class="columns is-centered is-multiline">
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Open-Loop <br> (static environment)</h3>
+            <h3 class="title is-6 has-text-centered">Vanilla Open-Loop <br> (static environment)</h3>
             <video id="video5" autoplay controls muted loop playsinline height="100%" >
               <source src="./static/videos/vanilla_droptoy_static_updated.mp4" type="video/mp4">
             </video>
@@ -420,7 +419,7 @@
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">BID Closed-Loop <br> (static environment)</h3>
+            <h3 class="title is-6 has-text-centered">BID Closed-Loop <br> (static environment)</h3>
             <video id="video6" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/extended_BID_droptoy_static.mp4" type="video/mp4">
             </video>
@@ -428,7 +427,7 @@
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Open-Loop <br> (dynamic environment)</h3>
+            <h3 class="title is-6 has-text-centered">Vanilla Open-Loop <br> (dynamic environment)</h3>
             <video id="video7" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/extended_vanilla_droptoy_stochastic.mp4" type="video/mp4">
             </video>
@@ -436,7 +435,7 @@
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">BID Closed-Loop <br> (dynamic environment)</h3>
+            <h3 class="title is-6 has-text-centered">BID Closed-Loop <br> (dynamic environment)</h3>
             <video id="video8" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/BID_droptoy_stochastic.mov" type="video/mp4">
             </video>
@@ -446,7 +445,7 @@
     </div>
     <div class="content has-text-justified">
       <p>
-        In particular, we observe that open loop action decoding often struggles with precision even in the static setting. Our next task for the robot is to drop a toy into a plastic cup. In the dynamic setting, this cup is moved by hand as the robot carries out the task. In both static and dynamic settings, BID achieves over 2x improvement in success rate compared to random sampling in open loop.
+        Our next task for the robot is to drop a toy into a plastic cup. In the dynamic setting, this cup is moved by hand as the robot carries out the task.
       </p>
     </div>
   </div>
@@ -463,38 +462,38 @@
       <div class="columns is-centered is-multiline">
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Open-Loop</h3>
+            <h3 class="title is-6 has-text-centered">Vanilla Open-Loop</h3>
             <video id="video9" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/VanillaOpen_pushT.mp4" type="video/mp4">
             </video>
-            <p>Fails to react to environment stochasticity.</p>
+            <p>Not reactive to environment stochasticity.</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">Vanilla Closed-Loop</h3>
             <video id="video10" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/VanillaClosed_pushT.mp4" type="video/mp4">
             </video>
-            <p>Reacts to stochasticity but lacks a long-term plan.</p>
+            <p>Reactive but not consistent with a long-term plan.</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">EMA Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">EMA Closed-Loop</h3>
             <video id="video11" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/EMA_pushT.mp4" type="video/mp4">
             </video>
-            <p>Fails to balance reactivity and long-term planning. </p>
+            <p>Fails to balance reactivity and long-term plan. </p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">BID Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">BID Closed-Loop</h3>
             <video id="video12" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/BID_pushT.mp4" type="video/mp4">
             </video>
-            <p>Reactive to stochasticity and carries out a consistent plan.</p>
+            <p>Reactive to stochasticity and consistent with plan.</p>
           </div>
         </div>
       </div>
@@ -503,34 +502,34 @@
       <div class="columns is-centered is-multiline">
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Open-Loop</h3>
+            <h3 class="title is-6 has-text-centered">Vanilla Open-Loop</h3>
             <video id="video13" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/random_open_noisy_franka.mp4" type="video/mp4">
             </video>
-            <p>Fails to react to stochasticity, thus unable to grab objects.</p>
+            <p>Not reactive to stochasticity, thus unable to grab objects.</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">Vanilla Closed-Loop</h3>
             <video id="video14" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/random_close_noisy_franka.mp4" type="video/mp4">
             </video>
-            <p>Reacts to stochasticity but slow and jittery trajectories.</p>
+            <p>Reactive but inconsistent causing jittery motions.</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">EMA Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">EMA Closed-Loop</h3>
             <video id="video15" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/ema_noisy_franka.mp4" type="video/mp4">
             </video>
-            <p>Inconsistency in execution causing slower movements.</p>
+            <p>Not consistent with plan causing slower movements.</p>
           </div>
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">BID Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">BID Closed-Loop</h3>
             <video id="video16" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/bbs_noisy_franka.mp4" type="video/mp4">
             </video>
@@ -543,7 +542,7 @@
       <div class="columns is-centered is-multiline">
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Open-Loop</h3>
+            <h3 class="title is-6 has-text-centered">Vanilla Open-Loop</h3>
             <video id="video13" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/toolhang_randomopen_20002_ptus8x50.mp4" type="video/mp4">
             </video>
@@ -552,7 +551,7 @@
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">Vanilla Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">Vanilla Closed-Loop</h3>
             <video id="video14" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/toolhang_randomclose_20002_wbhfz0xa.mp4" type="video/mp4">
             </video>
@@ -561,7 +560,7 @@
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">EMA Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">EMA Closed-Loop</h3>
             <video id="video15" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/toolhang_ema_20002_lp9a2ntj.mp4" type="video/mp4">
             </video>
@@ -570,7 +569,7 @@
         </div>
         <div class="column is-one-quarter">
           <div class="content">
-            <h3 class="title is-6">BID Closed-Loop</h3>
+            <h3 class="title is-6 has-text-centered">BID Closed-Loop</h3>
             <video id="video16" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/toolhang_bbs_20002_7sabbkrs.mp4" type="video/mp4">
             </video>
