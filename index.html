@@ -404,7 +404,7 @@
     </div>
     <div class="content has-text-justified">
       <p>
-        We use a pretrained diffusion policy and compare the performance of BID with random sampling in open loop, random sampling in closed loop, and Exponential Moving Average (EMA) sampling. The first task is to pick up a moving cup whose initial position is fixed and place it on a nearby saucer. The cup is pulled with a string until both the gripper grasps the cup.
+        We use a pretrained diffusion policy and compare the performance of BID with random sampling in open loop, random sampling in closed loop, and Exponential Moving Average (EMA) sampling. The first task is to <i>pick up a moving cup</i> whose initial position is fixed and <i>place it on a nearby saucer</i>. The cup is pulled with a string until both the gripper grasps the cup.
       </p>
     </div>
     <div class="video-row">
@@ -445,7 +445,7 @@
     </div>
     <div class="content has-text-justified">
       <p>
-        Our next task for the robot is to drop a toy into a plastic cup. In the dynamic setting, this cup is moved by hand as the robot carries out the task.
+        Our next task for the robot is to <i>drop a toy into a plastic cup</i>. In the dynamic setting, this cup is moved by hand as the robot carries out the task.
       </p>
     </div>
   </div>
@@ -629,21 +629,21 @@
         <h2 class="title is-3">Results</h2>
         <div class="content has-text-justified">
           <p>
-            We evaluate BID on the Push-T, RoboMimic, and 4-Object Franka Kitchen tasks. While existing inference methods offer some benefits for closed-loop operations, they either lack robustness or are highly sensitive to decay rate. BID consistently achieves substantial gains across all tasks, surpassing the vanilla baseline by over 32% in relative improvements. 
+            We evaluate BID on the Push-T, RoboMimic, and 4-Object Franka Kitchen tasks. While existing inference methods offer some benefits for closed-loop operations, they either lack robustness or are highly sensitive to decay rate. BID consistently achieves substantial gains across all tasks, <i>surpassing the vanilla baseline by over 32% in relative improvements</i>. 
           </p>
         <figure class="image is-centered" style="margin-bottom: 1rem;">
           <img src="./static/images/Simulation_results.png" alt="Comparison of methods">
         </figure>
         <div class="content has-text-justified">
           <p>
-            We also evaluate two critical properties of BID: scalability with increasing batch sizes and compatibility with existing inference methods. Notably, BID benefits significantly from large batch sizes, demonstrating strong potential for test-time scaling. Moreover, when combined with EMA, BID boosts the relative performance gain from 32% to 46%, exhibiting a complementary effect with existing methods.
+            We also evaluate two critical properties of BID: scalability with increasing batch sizes and compatibility with existing inference methods. Notably, <i>BID benefits significantly from large batch sizes, demonstrating strong potential for test-time scaling</i>. Moreover, when combined with EMA, BID boosts the relative performance gain from 32% to 46%, exhibiting a <i>complementary effect with existing methods</i>.
           </p>
           <figure class="image is-centered" style="margin-bottom: 1rem;">
             <img src="./static/images/scale+complement.png" alt="Scalability with increasing batch sizes and compatibility with existing inference methods">
           </figure>
           <div class="content has-text-justified">
           <p>
-            We next extend our experiment to VQ-BET, another state-of-the-art robot policy built with autoregressive transformers, while also ablating each component of BID. We find that BID demonstrates much higher robustness to stochastic noise than other baselines and all the components of BID work synergistically to achieve the strongest performance across all environment settings.
+            We next extend our experiment to VQ-BET, another state-of-the-art robot policy built with autoregressive transformers, while also ablating each component of BID. We find that <i>BID demonstrates much higher robustness to stochastic noise</i> than other baselines and all the components of BID work synergistically to achieve the strongest performance across all environment settings.
           </p>
           <figure class="image is-centered" style="margin-bottom: 1rem;">
             <img src="./static/images/vqbet_pusht.png" alt="Results on VQ-BET in Push-T task">
