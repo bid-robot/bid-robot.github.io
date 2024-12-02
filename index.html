@@ -209,7 +209,7 @@
       <div class="column is-four-fifths">
         <figure class="image is-centered" style="margin-bottom: 0;">
           <video autoplay loop muted playsinline>
-            <source src="./static/videos/animation.mp4" type="video/mp4">
+            <source src="./static/videos/BID copy.mp4" type="video/mp4">
           </video>
         </figure>
       </div>
@@ -242,15 +242,11 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Predicting and executing a sequence of actions without intermediate replanning, known as action chunking, is increasingly used in robot learning from human demonstrations.
-            However, its effects on learned policies remain puzzling: some studies highlight its importance for achieving strong performance, while others observe detrimental effects.
-            In this paper, we first dissect the role of action chunking by analyzing the divergence between the learner and the demonstrator.
-            We find that longer action chunks enable a policy to better capture temporal dependencies by taking into account more past states and actions within the chunk.
-            However, this advantage comes at the cost of exacerbating errors in stochastic environments due to fewer observations of recent states.
-            To address this, we propose <i>Bidirectional Decoding</i> (BID), a test-time inference algorithm that bridges action chunking with closed-loop operations.
-            BID samples multiple predictions at each time step and searches for the optimal one based on two criteria: (i) backward coherence, which favors samples aligned with previous decisions, (ii) forward contrast, which favors samples close to outputs of a stronger policy and distant from those of a weaker policy.
-            By coupling decisions within and across action chunks, BID enhances temporal consistency over extended sequences while enabling adaptive replanning in stochastic environments.
-            Experimental results show that BID substantially outperforms conventional closed-loop operations of two state-of-the-art generative policies across seven simulation benchmarks and two real-world tasks.
+            Predicting and executing a sequence of actions without intermediate replanning, known as action chunking, is increasingly used in robot learning from human demonstrations. Yet, its reported effects on the learned policy are inconsistent: some studies find it crucial for achieving strong results, while others observe decreased performance. In this paper, we first dissect how action chunking impacts the divergence between a learner and a demonstrator. We find that action chunking allows the learner to better capture the temporal dependencies in demonstrations but at the cost of reduced reactivity in stochastic environments. 
+            To address this tradeoff, we propose <i>Bidirectional Decoding</i> (BID), a test-time inference algorithm that bridges action chunking with closed-loop operations.
+            BID samples multiple predictions at each time step and searches for the optimal one based on two criteria: (i) backward coherence, which favors samples that align with previous decisions; (ii) forward contrast, which seeks samples of high likelihood for future plans.
+            By coupling decisions within and across action chunks, BID promotes consistency over time while maintaining reactivity to unexpected changes. 
+            Experimental results show that BID boosts the performance of two state-of-the-art generative policies across seven simulation benchmarks and two real-world tasks.
           </p>
         </div>
       </div>
@@ -279,10 +275,10 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <figure class="image is-centered" style="margin-top: 0; margin-bottom: 0;">
-          <img src="./static/images/learners.png" alt="Analysis gif" style="width: 60%; height: auto; display: block; margin: 0 auto;">
+          <img src="./static/images/horizon.pdf" alt="Analysis" style="width: 60%; height: auto; display: block; margin: 0 auto;">
         </figure>
         <p>
-          Gray shadows are observed <i>contexts</i>; darker indictates higher importance. <br>Hatches areas denote executed actions.
+          Fig 1: Shaded regions indicate observed history; darker indicate greater influence on current decision.
         </p>
       </div>
     </div>
@@ -297,7 +293,7 @@
           <p>
             The expected loss of the two agents, \(\pi_h\) and \(\pi_{h+d}\), with respect to the expert, \( \pi^* \), are related by the following inequality. 
             $$ \alpha_f - \epsilon_b(1 - P_b^{2d}) \leq \min_{\pi_{h+d}} \mathbb{E}_{G} \left[ \mathcal{L}(\pi_{h+d}, \pi^*) | C \right] - \min_{\pi_{h}} \mathbb{E}_{G} \left[\mathcal{L}(\pi_{h}, \pi^*) | C \right] \leq - \alpha_b + \epsilon_f(1 - P_f^{2d}). $$ 
-            Intuitively, the advantage of each policy stems from the additional information it has access to (i.e., \( \alpha_f \) for \( \pi_h \) and \( \alpha_b \) for \( \pi_{h+d} \)) while the disadvantage is bounded by the maximum divergence arising from inferring missing information incorrectly (i.e., \(\epsilon_b(1 - P_b^{2d})\) and \(\epsilon_f(1 - P_f^{2d}\)). 
+            Intuitively, the advantage of each policy stems from the additional information it has access to (i.e., \( \alpha_f \) for \( \pi_h \) and \( \alpha_b \) for \( \pi_{h+d} \)) while the disadvantage is bounded by the maximum divergence arising from inferring missing information incorrectly (i.e., \(\epsilon_b(1 - P_b^{2d})\) and \(\epsilon_f(1 - P_f^{2d}) \)). 
             Our theoretical analysis provides us two important takeaways :
           </p>
           
@@ -322,7 +318,7 @@
           <div style="background-color: #f5f5f5; padding: 1rem; margin-top: 1rem; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
             <p>
               <!-- Second takeaway content -->
-              <strong>Takeaway 3:</strong> This analysis motivates us to use closed-loop operations, to maximize reactivity to environment stochasticity, while increasing temporal consistency through resampling techniques.
+              <strong>Takeaway 3:</strong> This analysis motivates us to use closed-loop operations, to maximize reactivity to environment stochasticity, while increasing temporal consistency through guided resampling.
             </p>
           </div>
         </div>
@@ -340,11 +336,12 @@
         <h3 class="subtitle is-4">Bidirectional Decoding</h3>
         <div class="content has-text-justified">
           <p>
-            Our hypothesis suggests that while the probability of any pair of samples sharing the same latent strategy is low, the likelihood of finding a consistent pair from a large number of samples is significantly higher. This motivates us to solve the closed-loop action chunking problem by identifying the optimal action within a batch of plans at each time step, $$ a^* = \arg \min_{a \in \mathcal{A}} \mathcal{L}_B(a) + \mathcal{L}_F(a) $$ where  \( \mathcal{L}_B \) and \( \mathcal{L}_F \) are two criteria measuring the temporal dependency with respect to the backward decision and forward plan.
-            To ensure temporal coherence, we  reference the action chunk from the previous time step, \( \{ \hat{a}_{t-1}, \cdots, \hat{a}_{t+h-1} \} \) and minimize the weighted sum of Euclidean distance across \( h - 1 \) overlapping steps: 
-            $$ \mathcal{L}_B = \sum_{\tau=0}^{h-1} \rho^\tau \left\| a_{t+\tau} - {\hat a}_{t+\tau} \right\|_2. $$
-            This encourages consistent latent strategies across time steps, while allowing for gradual adaptation to unforeseen environment dynamics. <br> A robust policy should predict far enough to capture temporal dependencies in demonstrations. To ensure this, we compare each candidate plan with two reference sets: one from a well-trained model as the stronger policy, and another from an early underfitting checkpoint or a shorter prediction horizon model as the weaker policy. The forward objective minimizes the average distance to positive samples from the strong policy and maximizes the average distance to negative samples from the weak policy:
-            $$ \mathcal{L}_F = \frac{1}{N}\left(\sum_{a^{+} \in \mathcal{A}^{+}} \sum_{\tau=0}^{l} \left\| a^{(t)}_{t+\tau} - a^{+}_{t+\tau} \right\|_2 - \sum_{a^{-} \in \mathcal{A}^{-}} \sum_{\tau=0}^{l} \left\| a^{(t)}_{t+\tau} - a^{-}_{t+\tau} \right\|_2\right),$$ where \( \mathcal{A}^{+} = \mathcal{A} \setminus \{a\} \) is the positive set predicted by the strong policy \( \pi \), \( \mathcal{A}^{-} \) is the negative set predicted by the weak policy \( \pi' \). 
+            Intuitively, while the probability of any single pair of samples sharing the same latent strategy is low, the likelihood of finding a consistent pair increases with the number of samples. 
+            We thus frame the problem of closed-loop action chunking as searching for the optimal action among a batch of samples drawn at each time step, $$ a^* = \arg \min_{a \in \mathcal{A}} \mathcal{L}_B(a) + \mathcal{L}_F(a) $$ where \(\mathcal{A}\) is the set of sampled action chunks, \( \mathcal{L}_B \) and \( \mathcal{L}_F \) are two criteria measuring the temporal dependency with respect to the backward decision and forward plan.
+            To ensure temporal coherence, we  reference the action chunk from the previous time step, \( \hat a := \{ {a}^{(t-1)}_{t-1}, \cdots, {a}^{(t-1)}_{t+l-1} \} \) and minimize the weighted sum of Euclidean distance across \( l - 1 \) overlapping steps: 
+            $$ \mathcal{L}_B = \sum_{\tau=0}^{l-1} \rho^\tau \left\| a_{t+\tau}^{(t)} - {\hat a}_{t+\tau}^{(t-1)} \right\|_2. $$
+            This backward objective encourages similar latent strategies between consecutive steps while allowing for gradual adaptation to unforeseen transition dynamics. <br> A robust policy should predict far enough to capture temporal dependencies in demonstrations. To ensure this, we compare each candidate plan with two reference sets: one from a well-trained model as the stronger policy, and another from an early underfitting checkpoint or a shorter prediction horizon model as the weaker policy. The forward objective minimizes the average distance to positive samples from the strong policy and maximizes the average distance to negative samples from the weak policy:
+            $$ \mathcal{L}_F = \frac{1}{N}\left(\sum_{a^{+} \in \mathcal{A}^{+}} \sum_{\tau=0}^{l} \left\| a^{(t)}_{t+\tau} - a^{+}_{t+\tau} \right\|_2 - \sum_{a^{-} \in \mathcal{A}^{-}} \sum_{\tau=0}^{l} \left\| a^{(t)}_{t+\tau} - a^{-}_{t+\tau} \right\|_2\right),$$ where \( \mathcal{A}^{+} = \mathcal{A} \setminus \{a\} \) is the positive set predicted by the strong policy \( \pi \), \( \mathcal{A}^{-} \) is the negative set predicted by the weak policy \( \pi' \) and \(N\) is the sample size.
           </p>
         </div>
       </div>
@@ -464,7 +461,7 @@
     </div>
     <div class="content has-text-justified">
       <p>
-        In simulation, we evaluate BID on the Push-T, RoboMimic, and 4-Object Franka Kitchen tasks. Below, we provide sample behaviors of the four methods on PushT, Franka Kitchen, Square and ToolHang tasks in a stochastic environment.
+        In simulation, we evaluate BID on the Push-T, RoboMimic, and 4-Object Franka Kitchen tasks. Below, we provide sample behaviors in stochastic environments.
       </p>
     </div>
     <div class="video-row">
@@ -587,7 +584,7 @@
         </div>
       </div>
     </div>
-    <div class="video-row">
+    <!-- <div class="video-row">
       <div class="columns is-centered is-multiline">
         <div class="column is-one-quarter">
           <div class="content">
@@ -626,7 +623,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </section>
 
@@ -651,6 +648,12 @@
             <img src="./static/images/scale+complement.png" alt="Scalability with increasing batch sizes and compatibility with existing inference methods">
           </figure>
           <div class="content has-text-justified">
+          <p>
+            We next extend our experiment to VQ-BET, another state-of-the-art robot policy built with autoregressive transformers. We find that BID demonstrates much higher robustness to stochastic noise.
+          </p>
+          <figure class="image is-centered" style="margin-bottom: 1rem;">
+            <img src="./static/images/vqbet_pusht.png" alt="Results on VQ-BET in Push-T task">
+          </figure>
           <p>
             In real world, we, first, consider a task where the robot is to deliver an object held in its gripper into a cup held by a human. This task mirrors
             real-world scenarios where robots interact with a dynamic environment, accommodating moving objects and agents. In the second task, the robot is to pick up a moving cup and place it on a nearby saucer. BID achieves over 2x improvement in success rate compared to all other methods in the stochastic
