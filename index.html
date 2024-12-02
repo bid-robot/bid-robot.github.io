@@ -203,21 +203,6 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <figure class="image is-centered" style="margin-bottom: 0;">
-          <video autoplay loop muted playsinline>
-            <source src="./static/videos/BID copy.mp4" type="video/mp4">
-          </video>
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 
 <!-- <section class="section">
   <div class="container is-max-desktop">
@@ -334,6 +319,17 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Method</h2>
         <h3 class="subtitle is-4">Bidirectional Decoding</h3>
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <figure class="image is-centered" style="margin-bottom: 0;">
+                <video autoplay loop muted playsinline>
+                  <source src="./static/videos/BID copy.mp4" type="video/mp4">
+                </video>
+              </figure>
+            </div>
+          </div>
+        </div>  
         <div class="content has-text-justified">
           <p>
             Intuitively, while the probability of any single pair of samples sharing the same latent strategy is low, the likelihood of finding a consistent pair increases with the number of samples. 
@@ -530,7 +526,7 @@
             <video id="video15" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/ema_noisy_franka.mp4" type="video/mp4">
             </video>
-            <p>Lacks long-term planning such as aiming for one control knob but then switching to another mid-way. Adapts to stochasticity but slow and jittery trajectories.</p>
+            <p>Lacks long-term planning - switching between target control knobs. Slow reaction to stochasticity.</p>
           </div>
         </div>
         <div class="column is-one-quarter">
@@ -539,7 +535,7 @@
             <video id="video16" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/bbs_noisy_franka.mp4" type="video/mp4">
             </video>
-            <p>Adapts to the stochasticity and carries out a consistent long-term plan. BID is also faster and smoother than EMA.</p>
+            <p>Adapts to stochasticity and consistently executes long-term plan. BID is also faster and smoother than EMA.</p>
           </div>
         </div>
       </div>
