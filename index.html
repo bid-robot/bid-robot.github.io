@@ -133,6 +133,7 @@
                 <figure class="image is-centered" style="margin-bottom: 0;">
                   <img src="./static/images/logo.jpg" alt="Stanford University">
                 </figure>
+                <h3 class="title is-4" style="margin-top: 8px;">ICLR 2025</h3>
               </div>
             </div>
           </div>
@@ -276,9 +277,9 @@
       <div class="column is-four-fifths">
         <div class="content has-text-justified">
           <p>
-            The expected loss of the two agents, \(\pi_h\) and \(\pi_{h+d}\), with respect to the expert, \( \pi^* \), are related by the following inequality. 
-            $$ \alpha_f - \epsilon_b(1 - P_b^{2d}) \leq \min_{\pi_{h+d}} \mathbb{E}_{G} \left[ \mathcal{L}(\pi_{h+d}, \pi^*) | C \right] - \min_{\pi_{h}} \mathbb{E}_{G} \left[\mathcal{L}(\pi_{h}, \pi^*) | C \right] \leq - \alpha_b + \epsilon_f(1 - P_f^{2d}). $$ 
-            Intuitively, the advantage of each policy stems from the additional information it has access to (i.e., \( \alpha_f \) for \( \pi_h \) and \( \alpha_b \) for \( \pi_{h+d} \)) while the disadvantage is bounded by the maximum divergence arising from inferring missing information incorrectly (i.e., \(\epsilon_b(1 - P_b^{2d})\) and \(\epsilon_f(1 - P_f^{2d}) \)). 
+            The expected loss of the two agents with respect to the expert, \( \Delta_d := \min_{\pi_{h+d}} \mathbb{E} \left[\mathcal{L}(\pi_{h+d}, \pi^*) | C \right] - \min_{\pi_{h}} \mathbb{E} \left[\mathcal{L}(\pi_{h}, \pi^*) | C \right] \), are related by the following inequality. 
+            $$ \alpha_{f} - \epsilon_{b}\left(1 - \prod_{\tau \in \tau_b}P_b(\tau)(P_b(\tau) + \delta_b(\tau))\right) \leq \Delta_d \leq  \epsilon_{f}\left(1 - \prod_{\tau \in \tau_f}P_f(\tau)(P_f(\tau) + \delta_f(\tau))\right) - \alpha_{b}. $$ 
+            Intuitively, the advantage of each policy stems from the additional information it has access to (i.e., \( \alpha_f \) for \( \pi_h \) and \( \alpha_b \) for \( \pi_{h+d} \)) while the disadvantage is bounded by the maximum divergence arising from inferring missing information incorrectly. 
             Our theoretical analysis provides us two important takeaways :
           </p>
           
@@ -286,8 +287,7 @@
           <div style="background-color: #f5f5f5; padding: 1rem; margin-top: 1rem; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
             <p>
               <!-- First takeaway content -->
-              <strong>Takeaway 1:</strong> In a near-deterministic environment, the optimal longer action horizon policy outperforms the optimal shorter action horizon policy. More formally, if \(a_t\) is temporally dependent on at least one state in \(\{s_{t-h-c-d:t-h-c-1} \}\) and \(\epsilon_{f}\) is finite, 
-              $$ \min_{\pi_{h+d}} \mathbb{E}_{G} \left[ \mathcal{L}(\pi_{h+d}, \pi^*)| C \right] < \min_{\pi_{h}} \mathbb{E}_{G} \left[\mathcal{L}(\pi_{h}, \pi^*)| C \right]$$
+              <strong>Takeaway 1:</strong> In deterministic environments, while both policies need to infer the same number of unobserved states, longer action horizon benefits from conditioning on additional actions, which may significantly aid in inferring the corresponding states through its action chunk. However, this is only true if the implicit dynamics model learned by the policy is approximately accurate. Note that \(\pi_{h+d}\) performs better as we increase the diversity of strategies present in the dataset i.e., as the distribution of actions taken by the expert prior to the context of the short horizon policy becomes higher variance. 
             </p>
           </div>
           
@@ -295,8 +295,7 @@
           <div style="background-color: #f5f5f5; padding: 1rem; margin-top: 1rem; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
             <p>
               <!-- Second takeaway content -->
-              <strong>Takeaway 2:</strong>  In a highly stochastic environment, the optimal shorter action horizon policy outperforms the optimal longer action horizon policy. More formally, if temporal dependency decreases over the number of time steps, then 
-              $$ \min_{\pi_{h}} \mathbb{E}_{G} \left[\mathcal{L}(\pi_{h}, \pi^*)| C \right] <  \min_{\pi_{h+d}} \mathbb{E}_{G} \left[ \mathcal{L}(\pi_{h+d}, \pi^*)| C \right] $$
+              <strong>Takeaway 2:</strong>  Recent states are often more important to decision making and, therefore, the disadvantages of action chunking become pronounced when inferring these recent states becomes difficult. This can happen if the test environment is stochastic. This can also happen if the test environment is deterministic as long as the implicit dynamics model is inaccurate - either due to a distribution shift or because of learning difficulty.
             </p>
           </div>
           <!-- Second takeaway box -->
@@ -674,12 +673,15 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{liu2024bidirectional,
-  author    = {Liu, Yuejiang and Hamid, Jubayer Ibn and Xie, Annie and Lee, Yoonho and Du, Max and Finn, Chelsea},
-  title     = {Bidirectional Decoding: Improving Action Chunking via Closed-Loop Resampling},
-  journal   = {arXiv preprint arXiv:2408.17355},
-  year      = {2024},
-}</code></pre>
+    <pre><code>
+      @article{liu2025bidirectional,
+        title={Bidirectional Decoding: Improving Action Chunking via Closed-Loop Resampling},
+        author={Liu, Yuejiang and Hamid, Jubayer Ibn and Xie, Annie and Lee, Yoonho and Du, Max and Finn, Chelsea},
+        year={2025},
+        journal={International Conference on Learning Representations (ICLR)},
+        url={https://arxiv.org/abs/2408.17355}
+      }
+    </code></pre>
   </div>
 </section>
 
